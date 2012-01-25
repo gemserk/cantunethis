@@ -1,6 +1,9 @@
 
 * be able to declare a property to be modified
   + propertyManager.declare(id, type, property) 
+  
+* how to handle from outside the case when a property was removed/unregistered
+  + check contains each time
  
 * list available properties to be modified at runtime
 
