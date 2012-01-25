@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
+import com.gemserk.commons.reflection.ReflectionUtils;
+
 public class FirstTest {
 
 	interface Property<T extends Object> {
@@ -21,38 +23,19 @@ public class FirstTest {
 	class ReflectionProperty<T> implements Property<T> {
 
 		Object object;
-		Field field;
+		InternalField field;
 
-		public ReflectionProperty(Object object, String field) {
+		public ReflectionProperty(Object object, InternalField field) {
 			this.object = object;
-			try {
-				this.field = object.getClass().getDeclaredField(field);
-				this.field.setAccessible(true);
-			} catch (SecurityException e) {
-				throw new RuntimeException(e);
-			} catch (NoSuchFieldException e) {
-				throw new RuntimeException(e);
-			}
+			this.field = field;
 		}
 
 		public T get() {
-			try {
-				return (T) field.get(object);
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			}
+			return (T) field.getValue(object);
 		}
 
 		public void set(T value) {
-			try {
-				field.set(object, value);
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			}
+			field.setValue(object, value);
 		}
 
 	}
@@ -61,7 +44,7 @@ public class FirstTest {
 
 	}
 	
-	interface InternalField {
+	static interface InternalField {
 
 		Object getValue(Object obj);
 
@@ -69,9 +52,11 @@ public class FirstTest {
 
 	}
 	
-	class InternalFieldPublicImpl implements InternalField {
+	// can be cached since it doesn't have state
+	
+	static class InternalFieldPublicImpl implements InternalField {
 
-		private final Field field;
+		Field field;
 
 		public InternalFieldPublicImpl(Field field) {
 			this.field = field;
@@ -81,7 +66,7 @@ public class FirstTest {
 			try {
 				return field.get(obj);
 			} catch (Exception e) {
-				throw new RuntimeException("field must be public", e);
+				throw new RuntimeException("Field must be public", e);
 			}
 		}
 
@@ -89,13 +74,13 @@ public class FirstTest {
 			try {
 				field.set(obj, value);
 			} catch (Exception e) {
-				throw new RuntimeException("field must be public", e);
+				throw new RuntimeException("Field must be public", e);
 			}
 		}
 
 	}
 	
-	class InternalFieldMethodsReflectionImpl implements InternalField {
+	static class InternalFieldMethodsReflectionImpl implements InternalField {
 
 		Method getterMethod;
 		Method setterMethod;
@@ -123,7 +108,7 @@ public class FirstTest {
 
 	}
 	
-	protected static Method findMethod(Class clazz, String methodName) {
+	static Method findMethod(Class clazz, String methodName) {
 		Method[] methods = clazz.getMethods();
 		for (Method method : methods)
 			if (method.getName().equals(methodName))
@@ -131,9 +116,52 @@ public class FirstTest {
 		return null;
 	}
 	
+	static Field findField(Class clazz, String fieldName) {
+		try {
+			return clazz.getDeclaredField(fieldName);
+		} catch (SecurityException e) {
+			throw new RuntimeException(e);
+		} catch (NoSuchFieldException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	static InternalField internalFieldFromField(Class clazz, String fieldName) {
+		Field field = findField(clazz, "name");
+		field.setAccessible(true);
+		return new InternalFieldPublicImpl(field);
+	}
+	
+	static InternalField internalFieldFromMethods(Class clazz, String fieldName) {
+		Method setter = ReflectionUtils.getSetter(clazz, fieldName);
+		Method getter = ReflectionUtils.getGetter(clazz, fieldName);
+		return new InternalFieldMethodsReflectionImpl(getter, setter);
+	}
+	
+	static InternalField internalField(Class clazz, String fieldName) {
+		if (ReflectionUtils.getGetter(clazz, fieldName) != null &&
+			ReflectionUtils.getSetter(clazz, fieldName) != null) {
+			return internalFieldFromMethods(clazz, fieldName);
+		} else {
+			return internalFieldFromField(clazz, fieldName);
+		}
+	}
+	
+	static InternalField internalField(Object object, String fieldName) {
+		return internalField(object.getClass(), fieldName);
+	}
+	
 	static class MyObject {
 		
 		private String name;
+		
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+		public String getName() {
+			return name;
+		}
 		
 	}
 
@@ -142,7 +170,7 @@ public class FirstTest {
 		MyObject myObject = new MyObject();
 		myObject.name = "Hello";
 		
-		Property<String> property = new ReflectionProperty<String>(myObject, "name");
+		Property<String> property = new ReflectionProperty<String>(myObject, internalField(myObject, "name"));
 		
 		assertThat(property.get(), IsEqual.equalTo("Hello"));
 		property.set("World");
