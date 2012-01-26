@@ -22,8 +22,8 @@ public class TunableProperty<T> {
 		constraints.put(constraintName, constraint);
 	}
 
-	public Object getConstraint(String constraintName) {
-		return constraints.get(constraintName);
+	public <P> P getConstraint(String constraintName) {
+		return (P) constraints.get(constraintName);
 	}
 
 }
