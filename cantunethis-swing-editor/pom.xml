@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.gemserk.cantunethis</groupId>
+		<artifactId>cantunethis</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+	</parent>
+
+  <groupId>com.gemserk.cantunethis</groupId>
+  <artifactId>cantunethis-swing-editor</artifactId>
+  <version>0.0.3-SNAPSHOT</version>
+  <name>cantunethis swing editor</name>
+  <description>A Swing implementation for an editor to be used with the library</description>
+  
+</project>
