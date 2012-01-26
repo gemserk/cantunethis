@@ -5,21 +5,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.gemserk.properties.Property;
+import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class PropertyManagerImpl implements PropertyManager {
 
 	@SuppressWarnings("rawtypes")
-	private final Map<String, Property> properties = new HashMap<String, Property>();
+	private final Map<String, TunableProperty> properties = new HashMap<String, TunableProperty>();
 	private final HashSet<String> propertyIdentifiers = new HashSet<String>();
 
-	public void register(String id, Property<?> property) {
+	public void register(String id, TunableProperty<?> property) {
 		properties.put(id, property);
 		propertyIdentifiers.add(id);
 	}
 
-	public <T> Property<T> get(String id) {
-		return (Property<T>) properties.get(id);
+	@SuppressWarnings("unchecked")
+	public <T> TunableProperty<T> get(String id) {
+		return ((TunableProperty<T>) properties.get(id));
 	}
 
 	public boolean contains(String id) {

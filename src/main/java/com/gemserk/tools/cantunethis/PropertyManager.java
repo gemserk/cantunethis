@@ -2,11 +2,11 @@ package com.gemserk.tools.cantunethis;
 
 import java.util.Set;
 
-import com.gemserk.properties.Property;
+import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 
 /**
- * Provides an API to register and fetch Properties to be modified in runtime.
+ * Provides an API to register and fetch tunable properties to be modified in runtime.
  * 
  * @author acoppes
  * 
@@ -14,28 +14,28 @@ import com.gemserk.properties.Property;
 public interface PropertyManager {
 
 	/**
-	 * Registers a new Property with the specified identifier.
+	 * Registers a new TunableProperty with the specified identifier.
 	 * 
 	 * @param id
-	 *            The identifier of the EditorProperty.
+	 *            The identifier of the TunableProperty.
 	 * @param property
-	 *            The Property to be registered.
+	 *            The TunableProperty to be registered.
 	 */
-	void register(String id, Property<?> property);
+	void register(String id, TunableProperty<?> property);
 
 	/**
-	 * Returns the Property identified by the identifier.
+	 * Returns the TunableProperty identified by the identifier.
 	 * 
 	 * @param id
-	 *            The identifier of the Property.
+	 *            The identifier of the TunableProperty.
 	 */
-	<T> Property<T> get(String id);
+	<T> TunableProperty<T> get(String id);
 
 	/**
-	 * Returns true if it contains the Property identified by the identifier, false otherwise.
+	 * Returns true if it contains the TunableProperty identified by the identifier, false otherwise.
 	 * 
 	 * @param id
-	 *            The identifier of the Property.
+	 *            The identifier of the TunableProperty.
 	 */
 	boolean contains(String id);
 

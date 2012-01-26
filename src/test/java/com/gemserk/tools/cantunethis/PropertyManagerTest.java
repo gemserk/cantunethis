@@ -7,7 +7,7 @@ import org.hamcrest.core.IsNull;
 import org.junit.Test;
 
 import com.gemserk.properties.MockProperty;
-import com.gemserk.properties.Property;
+import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class PropertyManagerTest {
 
@@ -17,8 +17,8 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		propertyManager.register("prop1", mockProperty);
-		Property<Integer> property = propertyManager.get("prop1");
+		propertyManager.register("prop1", new TunableProperty<Integer>(mockProperty));
+		TunableProperty<Integer> property = propertyManager.get("prop1");
 
 		assertThat(property, IsNull.notNullValue());
 	}
@@ -29,7 +29,7 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		Property<Integer> property = propertyManager.get("prop1");
+		TunableProperty<Integer> property = propertyManager.get("prop1");
 
 		assertThat(property, IsNull.nullValue());
 	}
@@ -40,7 +40,7 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		propertyManager.register("prop1", mockProperty);
+		propertyManager.register("prop1", new TunableProperty<Integer>(mockProperty));
 		
 		assertThat(propertyManager.contains("prop1"), IsEqual.equalTo(true));
 	}
@@ -51,7 +51,7 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		propertyManager.register("prop1", mockProperty);
+		propertyManager.register("prop1", new TunableProperty<Integer>(mockProperty));
 		
 		assertThat(propertyManager.contains("prop2"), IsEqual.equalTo(false));
 	}
