@@ -27,8 +27,6 @@ public class PropertyManagerTest {
 	public void shouldReturnNullIfNoPropertyRegisteredWithTheSpecifiedIdentifier() {
 		PropertyManager propertyManager = new PropertyManagerImpl();
 
-		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
-
 		TunableProperty property = propertyManager.get("prop1");
 
 		assertThat(property, IsNull.nullValue());
