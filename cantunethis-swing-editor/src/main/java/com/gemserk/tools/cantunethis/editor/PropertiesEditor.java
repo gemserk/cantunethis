@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -148,23 +149,25 @@ public class PropertiesEditor extends JFrame {
 				});
 			}
 		};
-		field.setColumns(5);
+		
+		field.setColumns(10);
 		field.setValue(value);
 
 		propertyPanel.add(new JLabel(id));
 		propertyPanel.add(field);
 
-		Float min = (Float) tunableProperty.getConstraint("min");
-		Float max = (Float) tunableProperty.getConstraint("max");
+		Float minConstraint = (Float) tunableProperty.getConstraint(FloatEditorComponent.MIN_CONSTRAINT);
+		Float maxConstraint = (Float) tunableProperty.getConstraint(FloatEditorComponent.MAX_CONSTRAINT);
 
 		// if I found those restrictions, then I create a jslider with them
 		// the idea is to register whatever constraints you want and then create the counterpart on the editor to modify those values
 
-		if (min != null && max != null) {
-			propertyPanel.add(new JSlider(min.intValue(), max.intValue(), (int) value.floatValue()) {
+		if (minConstraint != null && maxConstraint != null) {
+			int min = minConstraint.intValue();
+			int max = maxConstraint.intValue();
+			propertyPanel.add(new JSlider(min, max, value.intValue()) {
 				{
 					setMinorTickSpacing(1);
-					setMajorTickSpacing((getMaximum() - getMinimum()) / 10);
 					setPaintTicks(true);
 
 					Hashtable labelTable = new Hashtable();
@@ -203,6 +206,7 @@ public class PropertiesEditor extends JFrame {
 		setContentPane(contentPane);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
 		panel = new JPanel();
