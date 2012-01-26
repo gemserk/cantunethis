@@ -9,18 +9,16 @@ import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class PropertyManagerImpl implements PropertyManager {
 
-	@SuppressWarnings("rawtypes")
 	private final Map<String, TunableProperty> properties = new HashMap<String, TunableProperty>();
 	private final HashSet<String> propertyIdentifiers = new HashSet<String>();
 
-	public void register(String id, TunableProperty<?> property) {
+	public void register(String id, TunableProperty property) {
 		properties.put(id, property);
 		propertyIdentifiers.add(id);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> TunableProperty<T> get(String id) {
-		return ((TunableProperty<T>) properties.get(id));
+	public TunableProperty get(String id) {
+		return properties.get(id);
 	}
 
 	public boolean contains(String id) {

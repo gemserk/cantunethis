@@ -21,7 +21,7 @@ public interface PropertyManager {
 	 * @param property
 	 *            The TunableProperty to be registered.
 	 */
-	void register(String id, TunableProperty<?> property);
+	void register(String id, TunableProperty property);
 
 	/**
 	 * Returns the TunableProperty identified by the identifier.
@@ -29,7 +29,7 @@ public interface PropertyManager {
 	 * @param id
 	 *            The identifier of the TunableProperty.
 	 */
-	<T> TunableProperty<T> get(String id);
+	TunableProperty get(String id);
 
 	/**
 	 * Returns true if it contains the TunableProperty identified by the identifier, false otherwise.

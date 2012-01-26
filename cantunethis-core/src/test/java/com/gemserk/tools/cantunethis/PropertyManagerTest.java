@@ -17,8 +17,8 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		propertyManager.register("prop1", new TunableProperty<Integer>(mockProperty));
-		TunableProperty<Integer> property = propertyManager.get("prop1");
+		propertyManager.register("prop1", new TunableProperty(mockProperty));
+		TunableProperty property = propertyManager.get("prop1");
 
 		assertThat(property, IsNull.notNullValue());
 	}
@@ -29,7 +29,7 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		TunableProperty<Integer> property = propertyManager.get("prop1");
+		TunableProperty property = propertyManager.get("prop1");
 
 		assertThat(property, IsNull.nullValue());
 	}
@@ -40,7 +40,7 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		propertyManager.register("prop1", new TunableProperty<Integer>(mockProperty));
+		propertyManager.register("prop1", new TunableProperty(mockProperty));
 		
 		assertThat(propertyManager.contains("prop1"), IsEqual.equalTo(true));
 	}
@@ -51,7 +51,7 @@ public class PropertyManagerTest {
 
 		MockProperty<Integer> mockProperty = new MockProperty<Integer>(50);
 
-		propertyManager.register("prop1", new TunableProperty<Integer>(mockProperty));
+		propertyManager.register("prop1", new TunableProperty(mockProperty));
 		
 		assertThat(propertyManager.contains("prop2"), IsEqual.equalTo(false));
 	}

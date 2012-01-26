@@ -2,27 +2,27 @@ package com.gemserk.tools.cantunethis.properties;
 
 import com.gemserk.properties.Property;
 
-public class TunablePropertyBuilder<T> {
+public class TunablePropertyBuilder {
 	
 	private static final TunablePropertyBuilder tunablePropertyBuilder = new TunablePropertyBuilder();
 	
-	public static <T> TunablePropertyBuilder<T> tunableProperty(Property<T> property) {
+	public static TunablePropertyBuilder tunableProperty(Property property) {
 		return tunablePropertyBuilder.property(property);
 	}
 	
-	TunableProperty<T> tunableProperty;
+	TunableProperty tunableProperty;
 	
-	private TunablePropertyBuilder<T> property(Property<T> property) {
-		this.tunableProperty = new TunableProperty<T>(property);
+	private TunablePropertyBuilder property(Property property) {
+		this.tunableProperty = new TunableProperty(property);
 		return this;
 	}
 
-	public TunablePropertyBuilder<T> constraint(String id, Object constraint) {
+	public TunablePropertyBuilder constraint(String id, Object constraint) {
 		this.tunableProperty.addConstraint(id, constraint);
 		return this;
 	}
 	
-	public TunableProperty<T> build() {
+	public TunableProperty build() {
 		return tunableProperty;
 	}
 

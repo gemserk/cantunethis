@@ -5,16 +5,16 @@ import java.util.Map;
 
 import com.gemserk.properties.Property;
 
-public class TunableProperty<T> {
+public class TunableProperty {
 	
-	private final Property<T> property;
+	private final Property property;
 	private final Map<String, Object> constraints = new HashMap<String, Object>(); 
 	
-	public TunableProperty(Property<T> property) {
+	public TunableProperty(Property property) {
 		this.property = property;
 	}
 	
-	public Property<T> getProperty() {
+	public <T> Property<T> getProperty() {
 		return property;
 	}
 	
