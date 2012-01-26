@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>com.gemserk.cantunethis</groupId>
 		<artifactId>cantunethis</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
+		<version>0.0.3</version>
 	</parent>
 
   <groupId>com.gemserk.cantunethis</groupId>
   <artifactId>cantunethis-core</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
-  <name>CanTuneThis</name>
+  <version>0.0.3</version>
+  <name>cantunethis library</name>
   <description>A project to allow you to dynamically modify the values you want</description>
   
   <dependencies>

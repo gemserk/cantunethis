@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>com.gemserk.cantunethis</groupId>
 		<artifactId>cantunethis</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
+		<version>0.0.3</version>
 	</parent>
 
   <groupId>com.gemserk.cantunethis</groupId>
   <artifactId>cantunethis-examples</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.3</version>
   <name>cantunethis examples project</name>
   <description>Examples project module</description>
   
