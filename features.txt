@@ -34,17 +34,20 @@ DONE:
 
 TODO:
 
-* values should be listed in alphabetic order 
 
 * monitor properties changes to update the GUI in some way
 
-*
- 
 * jsliders should have original/default value of the property labeled
+  + define a conversion/scale between the slider integers and the float values
+  + minor/major tick spaces should depend on the scale
 
-* to have default editor components for common values like float, integer, string, etc
+* to have default editor components for common values like float, integer, string, etc 
+  + register Editor Components builders for a given class, for example, for libgdx.Color class we have the ColorEditorComponentBuilder, 
+  that will create new editor components in runtime using the builder.
 
 * register editors components like plugins, for example, a Component to handle the LibGDX Color and a different Component to handle kalle_h Light.
+
+* values should be listed in alphabetical order 
 
 DONE:
 
