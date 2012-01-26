@@ -10,15 +10,20 @@ public class TunablePropertyBuilder<T> {
 		return tunablePropertyBuilder.property(property);
 	}
 	
-	Property<T> property;
+	TunableProperty<T> tunableProperty;
 	
-	private TunablePropertyBuilder property(Property<T> property) {
-		this.property = property;
+	private TunablePropertyBuilder<T> property(Property<T> property) {
+		this.tunableProperty = new TunableProperty<T>(property);
+		return this;
+	}
+
+	public TunablePropertyBuilder<T> constraint(String id, Object constraint) {
+		this.tunableProperty.addConstraint(id, constraint);
 		return this;
 	}
 	
 	public TunableProperty<T> build() {
-		return new TunableProperty<T>(property);
+		return tunableProperty;
 	}
 
 }

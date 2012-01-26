@@ -18,12 +18,12 @@ public class TunableProperty<T> {
 		return property;
 	}
 	
-	public void addConstraint(String constraintName, Object constraint) {
-		constraints.put(constraintName, constraint);
+	public void addConstraint(String id, Object constraint) {
+		constraints.put(id, constraint);
 	}
 
-	public <P> P getConstraint(String constraintName) {
-		return (P) constraints.get(constraintName);
+	public <K> K getConstraint(String id) {
+		return (K) constraints.get(id);
 	}
 
 }

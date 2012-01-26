@@ -7,8 +7,8 @@ TODO:
   
 * how to handle from outside the case when a property was removed/unregistered
   + check contains each time
- 
-* list available properties to be modified at runtime
+
+* extend the project to be based in multiple modules, add a module for a basic editor using swing and then a module with examples of stuff being modified in runtime 
 
 * properties of real values could have several restrictions like minimum and maximum values, step, etc, for example: 
   + speed (min:5.0, max:15.0, step:0.5)
@@ -24,13 +24,17 @@ TODO:
 
 * properties can change type if a new one is registered with the specified id
 
-* possible values to edit in real time: Float, Integer, Color, Vector2?, 
+* possible values to edit in real time: Float, Integer, Boolean (checkbox), Color, Vector2?, 
 
 DONE:
+
+* list available properties to be modified at runtime
 
 === real time editor ===
 
 TODO:
+
+* values should be listed in alphabetic order 
 
 * monitor properties changes to update the GUI in some way
 
