@@ -1,9 +1,9 @@
 package com.gemserk.tools.cantunethis;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.gemserk.properties.Property;
 
@@ -11,7 +11,7 @@ public class PropertyManagerImpl implements PropertyManager {
 
 	@SuppressWarnings("rawtypes")
 	private final Map<String, Property> properties = new HashMap<String, Property>();
-	private final ArrayList<String> propertyIdentifiers = new ArrayList<String>();
+	private final HashSet<String> propertyIdentifiers = new HashSet<String>();
 
 	public void register(String id, Property<?> property) {
 		properties.put(id, property);
@@ -26,7 +26,7 @@ public class PropertyManagerImpl implements PropertyManager {
 		return properties.containsKey(id);
 	}
 
-	public List<String> listProperties() {
+	public Set<String> listProperties() {
 		return propertyIdentifiers;
 	}
 

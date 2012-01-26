@@ -9,7 +9,7 @@ public class InternalFields {
 
 	public static InternalField internalFieldFromField(Class clazz, String fieldName) {
 		try {
-			Field field = ReflectionUtils.getClassField(clazz, "name");
+			Field field = ReflectionUtils.getClassField(clazz, fieldName);
 			field.setAccessible(true);
 			return new InternalFieldPublicImpl(field);
 		} catch (NoSuchFieldException e) {

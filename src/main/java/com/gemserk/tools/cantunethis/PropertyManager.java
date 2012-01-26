@@ -1,6 +1,6 @@
 package com.gemserk.tools.cantunethis;
 
-import java.util.List;
+import java.util.Set;
 
 import com.gemserk.properties.Property;
 
@@ -42,6 +42,6 @@ public interface PropertyManager {
 	/**
 	 * Returns the list of the identifiers of the registered properties.
 	 */
-	List<String> listProperties();
+	Set<String> listProperties();
 
 }
