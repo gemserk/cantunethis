@@ -13,4 +13,5 @@
   <name>cantunethis examples project</name>
   <description>Examples project module</description>
   
+  <packaging>pom</packaging>
 </project>
