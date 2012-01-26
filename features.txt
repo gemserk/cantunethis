@@ -1,3 +1,6 @@
+=== properties ===
+
+TODO:
 
 * be able to declare a property to be modified
   + propertyManager.declare(id, type, property) 
@@ -14,3 +17,17 @@
 * modified property values are stored in an edition session, so you could maintain the modified value between multiple game plays for example (while the game is running)
 
 * all exposed properties could be modified but maybe in some places of the app you need to mark them as readonly
+
+DONE:
+
+=== real time editor ===
+
+TODO:
+
+* monitor properties changes to update the GUI in some way
+
+* 
+
+DONE:
+
+
