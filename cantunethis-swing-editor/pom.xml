@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>com.gemserk.cantunethis</groupId>
 		<artifactId>cantunethis</artifactId>
-		<version>0.0.3</version>
+		<version>0.0.4-SNAPSHOT</version>
 	</parent>
 
   <groupId>com.gemserk.cantunethis</groupId>
   <artifactId>cantunethis-swing-editor</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>cantunethis swing editor</name>
   <description>A Swing implementation for an editor to be used with the library</description>
   
