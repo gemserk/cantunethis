@@ -1,7 +1,7 @@
 package com.gemserk.tools.cantunethis.examples;
 
 import com.gemserk.properties.Properties;
-import com.gemserk.tools.cantunethis.CommonConstants;
+import com.gemserk.tools.cantunethis.CommonConstraints;
 import com.gemserk.tools.cantunethis.PropertyManager;
 import com.gemserk.tools.cantunethis.PropertyManagerImpl;
 import com.gemserk.tools.cantunethis.editor.PropertiesEditor;
@@ -26,8 +26,9 @@ public class ExampleApplication {
 
 		propertyManager.register("mainCharacter.speed", //
 				TunablePropertyBuilder.tunableProperty(Properties.internalProperty(myObject, "speed")) //
-						.constraint(CommonConstants.ForFloats.MIN_CONSTRAINT, 1f) // here are the restrictions used by the slider in the editor
-						.constraint(CommonConstants.ForFloats.MAX_CONSTRAINT, 10f) //
+						.constraint(CommonConstraints.ForFloats.MIN_CONSTRAINT, 1f) // here are the restrictions used by the slider in the editor
+						.constraint(CommonConstraints.ForFloats.MAX_CONSTRAINT, 10f) //
+						.constraint(CommonConstraints.ForFloats.SCALE_CONSTRAINT, 1f) //
 						.build());
 
 		propertyManager.register("mainCharacter.enabled", //

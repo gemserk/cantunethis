@@ -22,8 +22,16 @@ public class TunableProperty {
 		constraints.put(id, constraint);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <K> K getConstraint(String id) {
-		return (K) constraints.get(id);
+		return ((K) constraints.get(id));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <K> K getConstraint(String id, K defaultValue) {
+		if (!constraints.containsKey(id))
+			return defaultValue;
+		return ((K) constraints.get(id));
 	}
 
 }

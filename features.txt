@@ -21,6 +21,8 @@ TODO:
 
 * possible values to edit in real time: Float, Integer, Boolean (checkbox), Color, Vector2?, 
 
+* constraint could be named only extra data or something like that since they are more general than only constraints
+
 DONE:
 
 * be able to declare a property to be modified

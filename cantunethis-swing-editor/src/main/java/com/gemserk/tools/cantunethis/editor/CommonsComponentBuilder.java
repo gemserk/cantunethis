@@ -10,7 +10,7 @@ public class CommonsComponentBuilder {
 
 	public static FloatJSlider slider(float min, float max, float value, float scale) {
 		FloatJSlider slider = new FloatJSlider(min, max, value, scale);
-
+		
 		Hashtable labels = new Hashtable();
 		labels.put(slider.getMinimum(), new JLabel(Float.toString(min)));
 		labels.put(slider.getMaximum(), new JLabel(Float.toString(max)));

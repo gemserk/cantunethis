@@ -24,7 +24,7 @@ import javax.swing.text.DefaultFormatter;
 
 import com.gemserk.properties.Property;
 import com.gemserk.swing.FloatJSlider;
-import com.gemserk.tools.cantunethis.CommonConstants;
+import com.gemserk.tools.cantunethis.CommonConstraints;
 import com.gemserk.tools.cantunethis.PropertyManager;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
@@ -156,17 +156,16 @@ public class PropertiesEditor extends JFrame {
 		propertyPanel.add(new JLabel(id));
 		propertyPanel.add(field);
 
-		Float minConstraint = (Float) tunableProperty.getConstraint(CommonConstants.ForFloats.MIN_CONSTRAINT);
-		Float maxConstraint = (Float) tunableProperty.getConstraint(CommonConstants.ForFloats.MAX_CONSTRAINT);
+		Float minConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.MIN_CONSTRAINT);
+		Float maxConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.MAX_CONSTRAINT);
 
 		// if I found those restrictions, then I create a jslider with them
 		// the idea is to register whatever constraints you want and then create the counterpart on the editor to modify those values
 
 		if (minConstraint != null && maxConstraint != null) {
-			// int min = minConstraint.intValue();
-			// int max = maxConstraint.intValue();
-
-			FloatJSlider slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, minConstraint * 0.1f);
+			Float scaleConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.SCALE_CONSTRAINT, minConstraint * 0.1f);
+			
+			FloatJSlider slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, scaleConstraint);
 
 			slider.addChangeListener(new ChangeListener() {
 				@Override
@@ -179,32 +178,6 @@ public class PropertiesEditor extends JFrame {
 			});
 
 			propertyPanel.add(slider);
-
-			// propertyPanel.add(new JSlider(min, max, value.intValue()) {
-			// {
-			// setMinorTickSpacing(1);
-			// setPaintTicks(true);
-			//
-			// Hashtable labelTable = new Hashtable();
-			// labelTable.put(getMinimum(), new JLabel(String.valueOf(getMinimum())));
-			// labelTable.put(getMaximum(), new JLabel(String.valueOf(getMaximum())));
-			// labelTable.put(value.intValue(), new JLabel("*"));
-			// setLabelTable(labelTable);
-			// setPaintLabels(true);
-			//
-			// addChangeListener(new ChangeListener() {
-			//
-			// @Override
-			// public void stateChanged(ChangeEvent e) {
-			// JSlider source = (JSlider) e.getSource();
-			// if (source.getValueIsAdjusting())
-			// return;
-			// field.setValue(Float.valueOf(source.getValue()));
-			// }
-			// });
-			// }
-			// });
-
 		}
 
 		panel.add(propertyPanel);
