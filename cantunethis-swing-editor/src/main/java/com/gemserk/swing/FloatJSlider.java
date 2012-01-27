@@ -33,5 +33,9 @@ public class FloatJSlider extends JSlider {
 	public float getFloatValue() {
 		return ((float) getValue()) * scale;
 	}
+	
+	public void setFloatValue(float value) {
+		setValue(Math.round(value / scale));
+	}
 
 }

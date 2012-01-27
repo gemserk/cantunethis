@@ -37,4 +37,17 @@ public class FloatJSliderTest {
 		assertThat(slider.getMinorTickSpacing(), IsEqual.equalTo(1));
 	}
 
+	@Test
+	public void testGetFloatValue() {
+		FloatJSlider slider = new FloatJSlider(100f, 500f, 250f, 10f);
+		assertThat(slider.getFloatValue(), IsEqual.equalTo(250f));
+	}
+	
+	@Test
+	public void testSetFloatValue() {
+		FloatJSlider slider = new FloatJSlider(100f, 500f, 250f, 10f);
+		slider.setFloatValue(350f);
+		assertThat(slider.getValue(), IsEqual.equalTo(35));
+	}
+
 }
