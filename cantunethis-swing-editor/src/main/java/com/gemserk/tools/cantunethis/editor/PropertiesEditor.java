@@ -25,6 +25,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.gemserk.properties.Property;
+import com.gemserk.tools.cantunethis.CommonConstants;
 import com.gemserk.tools.cantunethis.PropertyManager;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
@@ -156,8 +157,8 @@ public class PropertiesEditor extends JFrame {
 		propertyPanel.add(new JLabel(id));
 		propertyPanel.add(field);
 
-		Float minConstraint = (Float) tunableProperty.getConstraint(FloatEditorComponent.MIN_CONSTRAINT);
-		Float maxConstraint = (Float) tunableProperty.getConstraint(FloatEditorComponent.MAX_CONSTRAINT);
+		Float minConstraint = (Float) tunableProperty.getConstraint(CommonConstants.ForFloats.MIN_CONSTRAINT);
+		Float maxConstraint = (Float) tunableProperty.getConstraint(CommonConstants.ForFloats.MAX_CONSTRAINT);
 
 		// if I found those restrictions, then I create a jslider with them
 		// the idea is to register whatever constraints you want and then create the counterpart on the editor to modify those values
