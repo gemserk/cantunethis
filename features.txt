@@ -1,9 +1,6 @@
 === properties ===
 
 TODO:
-
-* be able to declare a property to be modified
-  + propertyManager.declare(id, type, property) 
   
 * how to handle from outside the case when a property was removed/unregistered
   + check contains each time
@@ -11,14 +8,14 @@ TODO:
 * properties of real values could have several restrictions like minimum and maximum values, step, etc, for example: 
   + speed (min:5.0, max:15.0, step:0.5)
   + editor should be able to use these values
-  + restriction("character.name", possibleValues("ben", "tommy", "manson"));
+  + restriction("character.name", possibleValues("ben", "tommy", "manson")); (get values from an Enum too)
   + restrictions/constraints could be used for custom editor components in the way they want
 
 * export properties modification (first version: print them in the terminal)
 
 * modified property values are stored in an edition session, so you could maintain the modified value between multiple game plays for example (while the game is running)
 
-* all exposed properties could be modified but maybe in some places of the app you need to mark them as readonly
+* all exposed properties could be modified but maybe in some places of the app you need to mark them as readonly? (a constraint?)
 
 * properties can change type if a new one is registered with the specified id
 
@@ -26,13 +23,15 @@ TODO:
 
 DONE:
 
+* be able to declare a property to be modified
+  + propertyManager.declare(id, type, property) 
+  
 * list available properties to be modified at runtime
 * extend the project to be based in multiple modules, add a module for a basic editor using swing and then a module with examples of stuff being modified in runtime
 
 === real time editor ===
 
 TODO:
-
 
 * monitor properties changes to update the GUI in some way
 
