@@ -33,11 +33,12 @@ DONE:
 
 TODO:
 
-* monitor properties changes to update the GUI in some way
-
 * jsliders should have original/default value of the property labeled
-  + define a conversion/scale between the slider integers and the float values
+  + define a conversion/scale between the slider integers and the float values <==
+    + example 1) value from 0.001 to 0.005 and step 0.001
   + minor/major tick spaces should depend on the scale
+
+* monitor properties changes to update the GUI in some way
 
 * to have default editor components for common values like float, integer, string, etc 
   + register Editor Components builders for a given class, for example, for libgdx.Color class we have the ColorEditorComponentBuilder, 
