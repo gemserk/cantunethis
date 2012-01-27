@@ -53,3 +53,7 @@ TODO:
 DONE:
 
 
+
+=== future work ===
+
+* change and show properties remotely, for example, open a light HTTP server on an android device and open an editor in the desktop to modify the values of the android device 
