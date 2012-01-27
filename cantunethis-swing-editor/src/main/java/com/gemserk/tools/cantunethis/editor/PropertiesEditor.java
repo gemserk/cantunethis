@@ -8,7 +8,6 @@ import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Set;
 
 import javax.swing.JCheckBox;
@@ -17,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
@@ -25,6 +23,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.gemserk.properties.Property;
+import com.gemserk.swing.FloatJSlider;
 import com.gemserk.tools.cantunethis.CommonConstants;
 import com.gemserk.tools.cantunethis.PropertyManager;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
@@ -32,7 +31,7 @@ import com.gemserk.tools.cantunethis.properties.TunableProperty;
 public class PropertiesEditor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JPanel contentPane;
 	private PropertyManager propertyManager;
 
@@ -150,7 +149,7 @@ public class PropertiesEditor extends JFrame {
 				});
 			}
 		};
-		
+
 		field.setColumns(10);
 		field.setValue(value);
 
@@ -164,32 +163,48 @@ public class PropertiesEditor extends JFrame {
 		// the idea is to register whatever constraints you want and then create the counterpart on the editor to modify those values
 
 		if (minConstraint != null && maxConstraint != null) {
-			int min = minConstraint.intValue();
-			int max = maxConstraint.intValue();
-			propertyPanel.add(new JSlider(min, max, value.intValue()) {
-				{
-					setMinorTickSpacing(1);
-					setPaintTicks(true);
+			// int min = minConstraint.intValue();
+			// int max = maxConstraint.intValue();
 
-					Hashtable labelTable = new Hashtable();
-					labelTable.put(getMinimum(), new JLabel(String.valueOf(getMinimum())));
-					labelTable.put(getMaximum(), new JLabel(String.valueOf(getMaximum())));
-					labelTable.put(value.intValue(), new JLabel("*"));
-					setLabelTable(labelTable);
-					setPaintLabels(true);
+			FloatJSlider slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, minConstraint * 0.1f);
 
-					addChangeListener(new ChangeListener() {
-
-						@Override
-						public void stateChanged(ChangeEvent e) {
-							JSlider source = (JSlider) e.getSource();
-							if (source.getValueIsAdjusting())
-								return;
-							field.setValue(Float.valueOf(source.getValue()));
-						}
-					});
+			slider.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					FloatJSlider source = (FloatJSlider) e.getSource();
+					if (source.getValueIsAdjusting())
+						return;
+					field.setValue(source.getFloatValue());
 				}
 			});
+
+			propertyPanel.add(slider);
+
+			// propertyPanel.add(new JSlider(min, max, value.intValue()) {
+			// {
+			// setMinorTickSpacing(1);
+			// setPaintTicks(true);
+			//
+			// Hashtable labelTable = new Hashtable();
+			// labelTable.put(getMinimum(), new JLabel(String.valueOf(getMinimum())));
+			// labelTable.put(getMaximum(), new JLabel(String.valueOf(getMaximum())));
+			// labelTable.put(value.intValue(), new JLabel("*"));
+			// setLabelTable(labelTable);
+			// setPaintLabels(true);
+			//
+			// addChangeListener(new ChangeListener() {
+			//
+			// @Override
+			// public void stateChanged(ChangeEvent e) {
+			// JSlider source = (JSlider) e.getSource();
+			// if (source.getValueIsAdjusting())
+			// return;
+			// field.setValue(Float.valueOf(source.getValue()));
+			// }
+			// });
+			// }
+			// });
+
 		}
 
 		panel.add(propertyPanel);
