@@ -23,6 +23,8 @@ TODO:
 
 * constraint could be named only extra data or something like that since they are more general than only constraints
 
+* annotations over class fields to declare contraints
+
 DONE:
 
 * be able to declare a property to be modified
@@ -34,6 +36,8 @@ DONE:
 === real time editor ===
 
 TODO:
+
+* property modified in game should be updated in the editor
 
 * jsliders should have original/default value of the property labeled
   + define a conversion/scale between the slider integers and the float values <==
