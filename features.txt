@@ -21,9 +21,9 @@ TODO:
 
 * possible values to edit in real time: Float, Integer, Boolean (checkbox), Color, Vector2?, 
 
-* constraint could be named only extra data or something like that since they are more general than only constraints
+* constraintcould be named only extra data or metadata or something like that since they are more general than only constraints
 
-* annotations over class fields to declare contraints
+* annotations over class fields to declare metadata
 
 DONE:
 
