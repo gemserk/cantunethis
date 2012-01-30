@@ -34,20 +34,22 @@ DONE:
   + propertyManager.declare(id, type, property) 
   
 * list available properties to be modified at runtime
+
 * extend the project to be based in multiple modules, add a module for a basic editor using swing and then a module with examples of stuff being modified in runtime
+
+* properties could be monitored to see if they changed the state between multiple calls to the monitor
 
 === real time editor ===
 
 TODO:
 
-* property modified in game should be updated in the editor
+* editor components of a specific property should be updated if the property changed its state
+ - (same) property modified in game should be updated in the editor
 
 * jsliders should have original/default value of the property labeled
   + define a conversion/scale between the slider integers and the float values <==
     + example 1) value from 0.001 to 0.005 and step 0.001
   + minor/major tick spaces should depend on the scale
-
-* monitor properties changes to update the GUI in some way
 
 * to have default editor components for common values like float, integer, string, etc 
   + register Editor Components builders for a given class, for example, for libgdx.Color class we have the ColorEditorComponentBuilder, 
