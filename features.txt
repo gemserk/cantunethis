@@ -21,9 +21,12 @@ TODO:
 
 * possible values to edit in real time: Float, Integer, Boolean (checkbox), Color, Vector2?, 
 
-* constraintcould be named only extra data or metadata or something like that since they are more general than only constraints
+* constraint could be named only extra data or metadata or something like that since they are more general than only constraints
 
 * annotations over class fields to declare metadata
+
+* recommendation (dunno how) for mutable fields use the field.immutable part instead, for example, for Vector2 register v.x and v.y instead the vector itself if we want the monitor, or 
+  register the state holder so the monitor could detect changes in the mutable object. 
 
 DONE:
 

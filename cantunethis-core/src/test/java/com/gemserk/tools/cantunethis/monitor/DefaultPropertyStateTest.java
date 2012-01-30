@@ -1,33 +1,48 @@
 package com.gemserk.tools.cantunethis.monitor;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertThat;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
-import com.gemserk.properties.Property;
+import com.gemserk.properties.MockProperty;
 
 public class DefaultPropertyStateTest {
-	
-	public static class DefaultPropertyState<T> implements PropertyState<T> {
 
-		@Override
-		public void store(Property<T> property) {
-			// TODO Auto-generated function stub
-			
-		}
-
-		@Override
-		public boolean compare(Property<T> property) {
-			// TODO Auto-generated function stub
-			return false;
-			
-		}
-
+	@Test
+	public void shouldReturnTrueIfPropertiesHoldSameValue() {
+		MockProperty<Float> floatProperty = new MockProperty<Float>(50f);
+		DefaultPropertyState<Float> propertyState = new DefaultPropertyState<Float>();
+		propertyState.store(floatProperty);
+		assertThat(propertyState.compare(floatProperty), IsEqual.equalTo(true));
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void shouldReturnFalseIfPropertiesDoesntHoldSameValue() {
+		MockProperty<Float> floatProperty = new MockProperty<Float>(50f);
+		DefaultPropertyState<Float> propertyState = new DefaultPropertyState<Float>();
+		propertyState.store(floatProperty);
+
+		floatProperty.set(20f);
+
+		assertThat(propertyState.compare(floatProperty), IsEqual.equalTo(false));
+	}
+
+	@Test
+	public void shouldNotFailWithNullValuesAndReturnTrue() {
+		MockProperty<Float> floatProperty = new MockProperty<Float>(null);
+		DefaultPropertyState<Float> propertyState = new DefaultPropertyState<Float>();
+		propertyState.store(floatProperty);
+		assertThat(propertyState.compare(floatProperty), IsEqual.equalTo(true));
+	}
+
+	@Test
+	public void compareShouldBeFalseWhenNullValueAndThenNonNullValue() {
+		MockProperty<Float> floatProperty = new MockProperty<Float>(null);
+		DefaultPropertyState<Float> propertyState = new DefaultPropertyState<Float>();
+		propertyState.store(floatProperty);
+		floatProperty.set(50f);
+		assertThat(propertyState.compare(floatProperty), IsEqual.equalTo(false));
 	}
 
 }

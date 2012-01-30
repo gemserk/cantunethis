@@ -2,6 +2,13 @@ package com.gemserk.tools.cantunethis.monitor;
 
 import com.gemserk.properties.Property;
 
+/**
+ * Stores the state of a Property in a custom way to be able to check it later.
+ * 
+ * @author acoppes
+ * 
+ * @param <T>
+ */
 public interface PropertyState<T> {
 
 	/**
