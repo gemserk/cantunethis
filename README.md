@@ -11,7 +11,7 @@ It is mainly focused for games but should be able to be used in other environmen
 		float speed;
 	}
 
-Then in some part of the code:
+Then in some part of the code you can register a tunable property for the character speed field with metadata declaring a minimum and maximum values of 10 and 50 respectively:
 
 	Character character = ...
 
@@ -21,6 +21,9 @@ Then in some part of the code:
 				.constraint(CommonConstraints.ForFloats.MAX_CONSTRAINT, 50f) //
 				.constraint(CommonConstraints.ForFloats.SCALE_CONSTRAINT, 5f) //
 				.build());
+
+For now the library and tool is in alpha state and the API could still change a lot.
+
 Features in mind
 ------------
 
