@@ -28,16 +28,20 @@ The previous code will provide information for the editor to auto generate editi
 
 For now the library and tool is in alpha state and the API could still change a lot.
 
-Features in mind
+Features
 ------------
 
 * Declare values to be customized in runtime in an easy way.
-* Declare metadata to customizable values to be able to customize later the graphical components.
+* Declare meta data to customizable values to be able to customize later the graphical components.
 * Default editor graphical components for default classes like float, integer, boolean, etc.
-* Customize editor components for your own classes.
-* Edit values of any device remotelly using your PC (for example, edit values on a running Android instance of a game in your desktop machine).
 
-* Read features.txt for more.
+Future work
+------------
+
+* Customize editor components for your own classes.
+* Edit values of any device remotely using your PC (for example, edit values on a running Android instance of a game in your desktop machine).
+
+For more detailed features and ideas in mind read features.txt.
 
 Contributing
 ------------
