@@ -22,6 +22,8 @@ Then in some part of the code you can register a tunable property for the charac
 				.constraint(CommonConstraints.ForFloats.SCALE_CONSTRAINT, 5f) //
 				.build());
 
+![Editor Screenshot](http://www.gemserk.com/things/mrtoad3.png)
+
 For now the library and tool is in alpha state and the API could still change a lot.
 
 Features in mind
