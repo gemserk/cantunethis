@@ -24,7 +24,7 @@ Then in some part of the code you can register a tunable property for the charac
 
 The previous code will provide information for the editor to auto generate edition components for those properties. The next picture shows an example how it works for one of our games:
 
-![Editor Screenshot](https://github.com/gemserk/cantunethis/raw/documentation/documentation/editor-example.png)
+![Editor Screenshot](https://github.com/gemserk/cantunethis/raw/master/documentation/editor-example.png)
 
 For now the library and tool is in alpha state and the API could still change a lot.
 
