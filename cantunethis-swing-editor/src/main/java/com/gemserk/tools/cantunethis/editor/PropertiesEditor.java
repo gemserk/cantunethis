@@ -31,6 +31,8 @@ import com.gemserk.tools.cantunethis.properties.TunableProperty;
 public class PropertiesEditor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final String applicationTitle = "Gemserk's Can Tune This - Properties Editor";
 
 	private JPanel contentPane;
 	private PropertyManager propertyManager;
@@ -46,6 +48,7 @@ public class PropertiesEditor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					setTitle(applicationTitle);
 					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

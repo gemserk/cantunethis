@@ -43,6 +43,8 @@ DONE:
 
 TODO:
 
+* editor application title
+
 * editor components of a specific property should be updated if the property changed its state
  - (same) property modified in game should be updated in the editor
 
