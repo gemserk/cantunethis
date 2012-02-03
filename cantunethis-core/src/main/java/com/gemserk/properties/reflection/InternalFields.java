@@ -3,7 +3,7 @@ package com.gemserk.properties.reflection;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import com.gemserk.commons.reflection.ReflectionUtils;
+import com.gemserk.tools.cantunethis.reflection.ReflectionUtils;
 
 public class InternalFields {
 
