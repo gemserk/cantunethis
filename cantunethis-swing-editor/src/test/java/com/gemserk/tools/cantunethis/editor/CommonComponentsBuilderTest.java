@@ -19,7 +19,7 @@ public class CommonComponentsBuilderTest {
 		float max = 0.005f;
 		float scale = 0.001f;
 
-		JSlider slider = CommonsComponentBuilder.slider(min, max, 0.002f, scale);
+		JSlider slider = CommonsComponentBuilder.slider("", min, max, 0.002f, scale);
 
 		Dictionary labelTable = slider.getLabelTable();
 		assertThat(((JLabel) labelTable.get(1)).getText(), IsEqual.equalTo(Float.toString(min)));
@@ -32,7 +32,7 @@ public class CommonComponentsBuilderTest {
 		float max = 500f;
 		float scale = 10f;
 
-		JSlider slider = CommonsComponentBuilder.slider(min, max, 250f, scale);
+		JSlider slider = CommonsComponentBuilder.slider("", min, max, 250f, scale);
 
 		Dictionary labelTable = slider.getLabelTable();
 		assertThat(((JLabel) labelTable.get(10)).getText(), IsEqual.equalTo(Float.toString(min)));

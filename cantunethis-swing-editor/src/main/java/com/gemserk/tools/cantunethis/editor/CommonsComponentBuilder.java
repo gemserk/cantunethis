@@ -2,6 +2,7 @@ package com.gemserk.tools.cantunethis.editor;
 
 import java.util.Hashtable;
 
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JLabel;
@@ -12,19 +13,66 @@ import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class CommonsComponentBuilder {
 
-	// public static class BooleanMonitor {
-	//
-	// private boolean value;
-	//
-	// public boolean isModified(boolean newValue) {
-	// return value != newValue;
-	// }
-	//
-	// void update(boolean newValue) {
-	// value = newValue;
-	// }
-	//
-	// }
+	public static class BooleanMonitor {
+
+		private boolean value;
+
+		public boolean isModified(boolean newValue) {
+			return value != newValue;
+		}
+
+		void update(boolean newValue) {
+			value = newValue;
+		}
+
+	}
+
+	public static class BooleanEditorComponent extends JCheckBox implements EditorComponent {
+
+		private static final long serialVersionUID = 6949427549852533660L;
+
+		String propertyId;
+		
+		BooleanMonitor booleanMonitor = new BooleanMonitor();
+
+		@Override
+		public void setPropertyId(String propertyId) {
+			this.propertyId = propertyId;
+		}
+
+		@Override
+		public String getPropertyId() {
+			return propertyId;
+		}
+		
+		public BooleanEditorComponent() {
+			booleanMonitor.update(false);
+		}
+		
+		@Override
+		public void setSelected(boolean b) {
+			super.setSelected(b);
+			booleanMonitor.update(b);
+		}
+		
+		@Override
+		public void update(TunableProperty tunableProperty) {
+			Property<Boolean> property = tunableProperty.getProperty();
+			
+			boolean editorComponentValue = isSelected();
+			
+			if (booleanMonitor.isModified(editorComponentValue)) {
+				property.set(editorComponentValue);
+				booleanMonitor.update(editorComponentValue);
+			} else {
+				
+				setSelected(property.get());
+				booleanMonitor.update(property.get());
+			}
+			
+		}
+
+	}
 
 	public static class FloatTextFieldEditorComponent extends JFormattedTextField implements EditorComponent {
 
@@ -79,7 +127,7 @@ public class CommonsComponentBuilder {
 
 	}
 
-	public static class FloatJSliderEditorComponent extends FloatJSlider implements EditorComponent {
+	public static class FloatSliderEditorComponent extends FloatJSlider implements EditorComponent {
 
 		private static final long serialVersionUID = 2819592512449538963L;
 
@@ -89,7 +137,7 @@ public class CommonsComponentBuilder {
 
 		Boolean hasFocus = false;
 
-		public FloatJSliderEditorComponent(float min, float max, float value, float scale) {
+		public FloatSliderEditorComponent(float min, float max, float value, float scale) {
 			super(min, max, value, scale);
 			previousValue = value;
 		}
@@ -132,13 +180,24 @@ public class CommonsComponentBuilder {
 		}
 
 	}
-
-	public static FloatTextFieldEditorComponent floatTextField(AbstractFormatter abstractFormatter) {
-		return new FloatTextFieldEditorComponent(abstractFormatter);
+	
+	public static BooleanEditorComponent checkbox(String propertyId, boolean selected) {
+		BooleanEditorComponent booleanEditorComponent = new BooleanEditorComponent();
+		booleanEditorComponent.setPropertyId(propertyId);
+		booleanEditorComponent.setSelected(selected);
+		return booleanEditorComponent;
 	}
 
-	public static FloatJSliderEditorComponent slider(float min, float max, float value, float scale) {
-		FloatJSliderEditorComponent slider = new FloatJSliderEditorComponent(min, max, value, scale);
+	public static FloatTextFieldEditorComponent floatTextField(String propertyId, AbstractFormatter abstractFormatter) {
+		FloatTextFieldEditorComponent floatTextFieldEditorComponent = new FloatTextFieldEditorComponent(abstractFormatter);
+		floatTextFieldEditorComponent.setPropertyId(propertyId);
+		return floatTextFieldEditorComponent;
+	}
+	
+	public static FloatSliderEditorComponent slider(String propertyId, float min, float max, float value, float scale) {
+		FloatSliderEditorComponent slider = new FloatSliderEditorComponent(min, max, value, scale);
+		
+		slider.setPropertyId(propertyId);
 
 		Hashtable labels = new Hashtable();
 		labels.put(slider.getMinimum(), new JLabel(Float.toString(min)));

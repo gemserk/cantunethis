@@ -24,7 +24,8 @@ import javax.swing.text.DefaultFormatter;
 import com.gemserk.properties.Property;
 import com.gemserk.tools.cantunethis.CommonConstraints;
 import com.gemserk.tools.cantunethis.PropertyManager;
-import com.gemserk.tools.cantunethis.editor.CommonsComponentBuilder.FloatJSliderEditorComponent;
+import com.gemserk.tools.cantunethis.editor.CommonsComponentBuilder.BooleanEditorComponent;
+import com.gemserk.tools.cantunethis.editor.CommonsComponentBuilder.FloatSliderEditorComponent;
 import com.gemserk.tools.cantunethis.editor.CommonsComponentBuilder.FloatTextFieldEditorComponent;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
@@ -128,22 +129,11 @@ public class PropertiesEditor extends JFrame {
 	private void addBooleanPropertyComponent(final String id, final Boolean value) {
 		JPanel propertyPanel = new JPanel();
 		propertyPanel.add(new JLabel(id));
-
-		JCheckBox checkBox = new JCheckBox() {
-			{
-				setSelected(value.booleanValue());
-				addItemListener(new ItemListener() {
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						JCheckBox checkBox = (JCheckBox) e.getItem();
-						TunableProperty tunableProperty = propertyManager.get(id);
-						Property<Boolean> property = tunableProperty.getProperty();
-						property.set(Boolean.valueOf(checkBox.isSelected()));
-					}
-				});
-			}
-		};
-
+		
+		BooleanEditorComponent checkBox = CommonsComponentBuilder.checkbox(id, value.booleanValue());
+		
+		editorComponents.add(checkBox);
+		
 		propertyPanel.add(checkBox);
 		panel.add(propertyPanel);
 	}
@@ -151,10 +141,8 @@ public class PropertiesEditor extends JFrame {
 	private void addFloatPropertyComponent(final String id, final TunableProperty tunableProperty, final Float value) {
 		JPanel propertyPanel = new JPanel();
 
-		FloatTextFieldEditorComponent field = CommonsComponentBuilder.floatTextField(new DefaultFormatter());
+		FloatTextFieldEditorComponent field = CommonsComponentBuilder.floatTextField(id, new DefaultFormatter());
 		
-		field.setPropertyId(id);
-
 		field.setColumns(10);
 		field.setFloatValue(value);
 		
@@ -174,8 +162,7 @@ public class PropertiesEditor extends JFrame {
 		if (minConstraint != null && maxConstraint != null) {
 			Float scaleConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.SCALE_CONSTRAINT, minConstraint * 0.1f);
 
-			FloatJSliderEditorComponent slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, scaleConstraint);
-			slider.setPropertyId(id);
+			FloatSliderEditorComponent slider = CommonsComponentBuilder.slider(id, minConstraint, maxConstraint, value, scaleConstraint);
 
 			editorComponents.add(slider);
 
