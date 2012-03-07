@@ -151,23 +151,6 @@ public class PropertiesEditor extends JFrame {
 	private void addFloatPropertyComponent(final String id, final TunableProperty tunableProperty, final Float value) {
 		JPanel propertyPanel = new JPanel();
 
-		// final JTextField field = new JTextField(value.toString());
-		// final JFormattedTextField field = new JFormattedTextField(NumberFormat.getNumberInstance());
-		
-		// JFormattedTextField field = new JFormattedTextField(new DefaultFormatter()) {
-		// {
-		// addPropertyChangeListener("value", new PropertyChangeListener() {
-		// @Override
-		// public void propertyChange(PropertyChangeEvent evt) {
-		// if (!"value".equals(evt.getPropertyName()))
-		// return;
-		// Property<Object> property = propertyManager.get(id).getProperty();
-		// property.set(evt.getNewValue());
-		// }
-		// });
-		// }
-		// };
-
 		FloatTextFieldEditorComponent field = CommonsComponentBuilder.floatTextField(new DefaultFormatter());
 		
 		field.setPropertyId(id);
@@ -193,16 +176,6 @@ public class PropertiesEditor extends JFrame {
 
 			FloatJSliderEditorComponent slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, scaleConstraint);
 			slider.setPropertyId(id);
-
-			// slider.addChangeListener(new ChangeListener() {
-			// @Override
-			// public void stateChanged(ChangeEvent e) {
-			// FloatJSlider source = (FloatJSlider) e.getSource();
-			// if (source.getValueIsAdjusting())
-			// return;
-			// field.setValue(source.getFloatValue());
-			// }
-			// });
 
 			editorComponents.add(slider);
 

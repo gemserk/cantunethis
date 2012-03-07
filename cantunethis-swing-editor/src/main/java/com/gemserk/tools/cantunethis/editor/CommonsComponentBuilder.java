@@ -11,19 +11,33 @@ import com.gemserk.swing.FloatJSlider;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class CommonsComponentBuilder {
-	
+
+	// public static class BooleanMonitor {
+	//
+	// private boolean value;
+	//
+	// public boolean isModified(boolean newValue) {
+	// return value != newValue;
+	// }
+	//
+	// void update(boolean newValue) {
+	// value = newValue;
+	// }
+	//
+	// }
+
 	public static class FloatTextFieldEditorComponent extends JFormattedTextField implements EditorComponent {
 
 		private static final long serialVersionUID = 8310649393790865053L;
-		
+
 		float previousValue;
 
 		String propertyId;
-		
+
 		public FloatTextFieldEditorComponent(AbstractFormatter abstractFormatter) {
 			super(abstractFormatter);
 		}
-		
+
 		public float getFloatValue() {
 			return ((Float) getValue()).floatValue();
 		}
@@ -32,11 +46,25 @@ public class CommonsComponentBuilder {
 			setValue(value);
 			this.previousValue = value;
 		}
-		
+
 		@Override
 		public void update(TunableProperty tunableProperty) {
 			Property<Float> property = tunableProperty.getProperty();
-			setFloatValue(property.get());
+
+			float currentEditorComponentValue = getFloatValue();
+
+			if (isFocusOwner())
+				return;
+
+			if (currentEditorComponentValue == previousValue) {
+				Float currentValue = property.get();
+				setFloatValue(currentValue);
+				previousValue = currentValue;
+			} else {
+				property.set(currentEditorComponentValue);
+				previousValue = currentEditorComponentValue;
+			}
+
 		}
 
 		@Override
@@ -48,9 +76,9 @@ public class CommonsComponentBuilder {
 		public String getPropertyId() {
 			return propertyId;
 		}
-		
+
 	}
-	
+
 	public static class FloatJSliderEditorComponent extends FloatJSlider implements EditorComponent {
 
 		private static final long serialVersionUID = 2819592512449538963L;
@@ -59,9 +87,7 @@ public class CommonsComponentBuilder {
 
 		float previousValue;
 
-		public FloatJSliderEditorComponent(float min, float max, float scale) {
-			super(min, max, scale);
-		}
+		Boolean hasFocus = false;
 
 		public FloatJSliderEditorComponent(float min, float max, float value, float scale) {
 			super(min, max, value, scale);
@@ -70,10 +96,7 @@ public class CommonsComponentBuilder {
 
 		@Override
 		public void update(TunableProperty tunableProperty) {
-			
 			Property<Float> property = tunableProperty.getProperty();
-			if (property == null)
-				return;
 
 			float floatValue = getFloatValue();
 
@@ -83,15 +106,18 @@ public class CommonsComponentBuilder {
 				previousValue = floatValue;
 			} else {
 				// otherwise tries to get the value from the property.
-				
+
+				if (isFocusOwner())
+					return;
+
 				Float realValue = property.get();
 				float floatRealValue = realValue.floatValue();
-				
+
 				if (previousValue != floatRealValue) {
 					setFloatValue(realValue.floatValue());
 					previousValue = realValue.floatValue();
 				}
-				
+
 			}
 		}
 
@@ -106,7 +132,7 @@ public class CommonsComponentBuilder {
 		}
 
 	}
-	
+
 	public static FloatTextFieldEditorComponent floatTextField(AbstractFormatter abstractFormatter) {
 		return new FloatTextFieldEditorComponent(abstractFormatter);
 	}
