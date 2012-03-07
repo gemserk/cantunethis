@@ -25,6 +25,7 @@ import com.gemserk.properties.Property;
 import com.gemserk.tools.cantunethis.CommonConstraints;
 import com.gemserk.tools.cantunethis.PropertyManager;
 import com.gemserk.tools.cantunethis.editor.CommonsComponentBuilder.FloatJSliderEditorComponent;
+import com.gemserk.tools.cantunethis.editor.CommonsComponentBuilder.FloatTextFieldEditorComponent;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class PropertiesEditor extends JFrame {
@@ -46,8 +47,15 @@ public class PropertiesEditor extends JFrame {
 	}
 
 	public void update() {
-		for (int i = 0; i < editorComponents.size(); i++) 
-			editorComponents.get(i).update();
+		for (int i = 0; i < editorComponents.size(); i++) {
+			EditorComponent editorComponent = editorComponents.get(i);
+			TunableProperty tunableProperty = propertyManager.get(editorComponent.getPropertyId());
+			if (tunableProperty == null)
+				continue;
+			if (tunableProperty.getProperty() == null)
+				continue;
+			editorComponent.update(tunableProperty);
+		}
 	}
 
 	public void start() {
@@ -145,28 +153,37 @@ public class PropertiesEditor extends JFrame {
 
 		// final JTextField field = new JTextField(value.toString());
 		// final JFormattedTextField field = new JFormattedTextField(NumberFormat.getNumberInstance());
-		final JFormattedTextField field = new JFormattedTextField(new DefaultFormatter()) {
-			{
-				addPropertyChangeListener("value", new PropertyChangeListener() {
-					@Override
-					public void propertyChange(PropertyChangeEvent evt) {
-						if (!"value".equals(evt.getPropertyName()))
-							return;
-						Property<Object> property = propertyManager.get(id).getProperty();
-						property.set(evt.getNewValue());
-					}
-				});
-			}
-		};
+		
+		// JFormattedTextField field = new JFormattedTextField(new DefaultFormatter()) {
+		// {
+		// addPropertyChangeListener("value", new PropertyChangeListener() {
+		// @Override
+		// public void propertyChange(PropertyChangeEvent evt) {
+		// if (!"value".equals(evt.getPropertyName()))
+		// return;
+		// Property<Object> property = propertyManager.get(id).getProperty();
+		// property.set(evt.getNewValue());
+		// }
+		// });
+		// }
+		// };
+
+		FloatTextFieldEditorComponent field = CommonsComponentBuilder.floatTextField(new DefaultFormatter());
+		
+		field.setPropertyId(id);
 
 		field.setColumns(10);
-		field.setValue(value);
+		field.setFloatValue(value);
+		
+		// field.setValue(value);
 
 		propertyPanel.add(new JLabel(id));
 		propertyPanel.add(field);
 
 		Float minConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.MIN_CONSTRAINT);
 		Float maxConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.MAX_CONSTRAINT);
+		
+		editorComponents.add(field);
 
 		// if I found those restrictions, then I create a jslider with them
 		// the idea is to register whatever constraints you want and then create the counterpart on the editor to modify those values
@@ -175,7 +192,7 @@ public class PropertiesEditor extends JFrame {
 			Float scaleConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.SCALE_CONSTRAINT, minConstraint * 0.1f);
 
 			FloatJSliderEditorComponent slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, scaleConstraint);
-			slider.manageProperty(propertyManager, id);
+			slider.setPropertyId(id);
 
 			// slider.addChangeListener(new ChangeListener() {
 			// @Override

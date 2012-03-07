@@ -2,28 +2,62 @@ package com.gemserk.tools.cantunethis.editor;
 
 import java.util.Hashtable;
 
+import javax.swing.JFormattedTextField;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JLabel;
 
 import com.gemserk.properties.Property;
 import com.gemserk.swing.FloatJSlider;
-import com.gemserk.tools.cantunethis.PropertyManager;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class CommonsComponentBuilder {
+	
+	public static class FloatTextFieldEditorComponent extends JFormattedTextField implements EditorComponent {
+
+		private static final long serialVersionUID = 8310649393790865053L;
+		
+		float previousValue;
+
+		String propertyId;
+		
+		public FloatTextFieldEditorComponent(AbstractFormatter abstractFormatter) {
+			super(abstractFormatter);
+		}
+		
+		public float getFloatValue() {
+			return ((Float) getValue()).floatValue();
+		}
+
+		public void setFloatValue(float value) {
+			setValue(value);
+			this.previousValue = value;
+		}
+		
+		@Override
+		public void update(TunableProperty tunableProperty) {
+			Property<Float> property = tunableProperty.getProperty();
+			setFloatValue(property.get());
+		}
+
+		@Override
+		public void setPropertyId(String propertyId) {
+			this.propertyId = propertyId;
+		}
+
+		@Override
+		public String getPropertyId() {
+			return propertyId;
+		}
+		
+	}
 	
 	public static class FloatJSliderEditorComponent extends FloatJSlider implements EditorComponent {
 
 		private static final long serialVersionUID = 2819592512449538963L;
 
-		PropertyManager propertyManager;
 		String propertyId;
 
 		float previousValue;
-
-		public void manageProperty(PropertyManager propertyManager, String propertyId) {
-			this.propertyManager = propertyManager;
-			this.propertyId = propertyId;
-		}
 
 		public FloatJSliderEditorComponent(float min, float max, float scale) {
 			super(min, max, scale);
@@ -35,10 +69,8 @@ public class CommonsComponentBuilder {
 		}
 
 		@Override
-		public void update() {
-			TunableProperty tunableProperty = propertyManager.get(propertyId);
-			if (tunableProperty == null)
-				return;
+		public void update(TunableProperty tunableProperty) {
+			
 			Property<Float> property = tunableProperty.getProperty();
 			if (property == null)
 				return;
@@ -63,6 +95,20 @@ public class CommonsComponentBuilder {
 			}
 		}
 
+		@Override
+		public void setPropertyId(String propertyId) {
+			this.propertyId = propertyId;
+		}
+
+		@Override
+		public String getPropertyId() {
+			return propertyId;
+		}
+
+	}
+	
+	public static FloatTextFieldEditorComponent floatTextField(AbstractFormatter abstractFormatter) {
+		return new FloatTextFieldEditorComponent(abstractFormatter);
 	}
 
 	public static FloatJSliderEditorComponent slider(float min, float max, float value, float scale) {
