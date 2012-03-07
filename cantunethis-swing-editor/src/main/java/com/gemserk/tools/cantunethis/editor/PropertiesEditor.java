@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,20 +19,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.gemserk.properties.Property;
-import com.gemserk.swing.FloatJSlider;
 import com.gemserk.tools.cantunethis.CommonConstraints;
 import com.gemserk.tools.cantunethis.PropertyManager;
+import com.gemserk.tools.cantunethis.editor.CommonsComponentBuilder.FloatJSliderEditorComponent;
 import com.gemserk.tools.cantunethis.properties.TunableProperty;
 
 public class PropertiesEditor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String applicationTitle = "Gemserk's Can Tune This - Properties Editor";
 
 	private JPanel contentPane;
@@ -40,8 +39,15 @@ public class PropertiesEditor extends JFrame {
 	private Set<String> properties;
 	private JPanel panel;
 
+	private ArrayList<EditorComponent> editorComponents;
+
 	public void setPropertyManager(PropertyManager propertyManager) {
 		this.propertyManager = propertyManager;
+	}
+
+	public void update() {
+		for (int i = 0; i < editorComponents.size(); i++) 
+			editorComponents.get(i).update();
 	}
 
 	public void start() {
@@ -167,18 +173,21 @@ public class PropertiesEditor extends JFrame {
 
 		if (minConstraint != null && maxConstraint != null) {
 			Float scaleConstraint = tunableProperty.getConstraint(CommonConstraints.ForFloats.SCALE_CONSTRAINT, minConstraint * 0.1f);
-			
-			FloatJSlider slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, scaleConstraint);
 
-			slider.addChangeListener(new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent e) {
-					FloatJSlider source = (FloatJSlider) e.getSource();
-					if (source.getValueIsAdjusting())
-						return;
-					field.setValue(source.getFloatValue());
-				}
-			});
+			FloatJSliderEditorComponent slider = CommonsComponentBuilder.slider(minConstraint, maxConstraint, value, scaleConstraint);
+			slider.manageProperty(propertyManager, id);
+
+			// slider.addChangeListener(new ChangeListener() {
+			// @Override
+			// public void stateChanged(ChangeEvent e) {
+			// FloatJSlider source = (FloatJSlider) e.getSource();
+			// if (source.getValueIsAdjusting())
+			// return;
+			// field.setValue(source.getFloatValue());
+			// }
+			// });
+
+			editorComponents.add(slider);
 
 			propertyPanel.add(slider);
 		}
@@ -204,6 +213,8 @@ public class PropertiesEditor extends JFrame {
 		panel = new JPanel();
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 2));
+
+		editorComponents = new ArrayList<EditorComponent>();
 	}
 
 }
